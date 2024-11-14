@@ -178,8 +178,8 @@
             <input type="text" class="display" id="display" disabled>
             <div class="buttons">
                 <button class="clear" onclick="clearDisplay()">C</button>
+                <button class="operation" onclick="backspace()">←</button>
                 <button class="operation" onclick="toggleSign()">+/-</button>
-                <button class="operation" onclick="calculatePercent()">%</button>
                 <button class="operation" onclick="appendToDisplay(':')">:</button>
                 <button class="digit" onclick="appendToDisplay('7')">7</button>
                 <button class="digit" onclick="appendToDisplay('8')">8</button>
@@ -198,6 +198,8 @@
                 <button class="digit" onclick="appendToDisplay(',')">,</button>
                 <button class="operation" onclick="calculate()">=</button>
                 <button class="operation" onclick="calculateSqrt()">√</button>
+                <button class="operation" onclick="calculatePercent()">%</button>
+                <button class="operation" onclick="appendToDisplay('3.14')">π</button>
             </div>
         </div>
         <div class="nose-mode">
@@ -214,25 +216,39 @@
             <input type="text" class="display" id="teeth-display" disabled>
             <div class="buttons">
                 <button class="clear" onclick="clearTeethDisplay()">C</button>
-                <button class="operation" onclick="calculateSquare()">x²</button>
-                <button class="operation" onclick="calculateCube()">x³</button>
-                <button class="operation" onclick="calculateSqrt()">√</button>
+                <button class="operation" onclick="backspaceTeeth()">←</button>
+                <button class="operation" onclick="toggleteethSign()">+/-</button>
+                <button class="operation" onclick="appendToTeethDisplay('3.14')">π</button>                
                 <button class="digit" onclick="appendToTeethDisplay('7')">7</button>
                 <button class="digit" onclick="appendToTeethDisplay('8')">8</button>
                 <button class="digit" onclick="appendToTeethDisplay('9')">9</button>
-                <button class="operation" onclick="appendToTeethDisplay('&')">AND (&)</button>
+                <button class="operation" onclick="appendToTeethDisplay(':')">:</button>
                 <button class="digit" onclick="appendToTeethDisplay('4')">4</button>
                 <button class="digit" onclick="appendToTeethDisplay('5')">5</button>
                 <button class="digit" onclick="appendToTeethDisplay('6')">6</button>
-                <button class="operation" onclick="appendToTeethDisplay('|')">OR (|)</button>
+                <button class="operation" onclick="appendToTeethDisplay('x')">x</button>
                 <button class="digit" onclick="appendToTeethDisplay('1')">1</button>
                 <button class="digit" onclick="appendToTeethDisplay('2')">2</button>
                 <button class="digit" onclick="appendToTeethDisplay('3')">3</button>
-                <button class="operation" onclick="appendToTeethDisplay('^')">XOR (^)</button>
+                <button class="operation" onclick="appendToTeethDisplay('-')">-</button>
                 <button class="digit" onclick="appendToTeethDisplay('0')">0</button>
                 <button class="digit" onclick="appendToTeethDisplay('00')">00</button>
                 <button class="digit" onclick="appendToTeethDisplay(',')">,</button>
+                <button class="operation" onclick="appendToTeethDisplay('+')">+</button>
+                <button class="operation" onclick="appendToTeethDisplay('&')">AND (&)</button>
+                <button class="operation" onclick="appendToTeethDisplay('|')">OR (|)</button>
+                <button class="operation" onclick="appendToTeethDisplay('^')">XOR (^)</button>
                 <button class="operation" onclick="appendToTeethDisplay('~')">NOT (~)</button>
+                <!-- <button class="operation" onclick="appendToTeethDisplay('sin(')">sin</button>
+                <button class="operation" onclick="appendToTeethDisplay('cos(')">cos</button>
+                <button class="operation" onclick="appendToTeethDisplay('tan(')">tan</button>
+                <button class="operation" onclick="appendToTeethDisplay('ctg(')">ctg</button>
+                <button class="operation" onclick="appendToTeethDisplay('lg(')">lg</button>
+                <button class="operation" onclick="appendToTeethDisplay('ln(')">ln</button>
+                <button class="operation" onclick="appendToTeethDisplay('^')">x<sup>y</sup></button> -->
+                <button class="operation" onclick="calculateSquare()">x²</button>
+                <button class="operation" onclick="calculateCube()">x³</button>
+                <button class="operation" onclick="calculateSqrt()">√</button>
                 <button class="operation" onclick="calculateTeeth()">=</button>
             </div>
         </div>
@@ -240,9 +256,12 @@
             <input type="text" class="display" id="binary-display" disabled>
             <div class="buttons">
                 <button class="clear" onclick="clearBinaryDisplay()">C</button>
+                <button class="operation" onclick="backspaceBinary()">←</button>
+                <button class="operation" onclick="togglebinarySign()">+/-</button>
+                <button class="operation" onclick="appendToBinaryDisplay('+')">+</button>
                 <button class="digit" onclick="appendToBinaryDisplay('1')">1</button>
                 <button class="digit" onclick="appendToBinaryDisplay('0')">0</button>
-                <button class="operation" onclick="appendToBinaryDisplay('+')">+</button>
+                <button class="digit" onclick="appendToBinaryDisplay('00')">00</button>
                 <button class="operation" onclick="appendToBinaryDisplay('-')">-</button>
                 <button class="operation" onclick="appendToBinaryDisplay('*')">*</button>
                 <button class="operation" onclick="appendToBinaryDisplay('/')">/</button>
@@ -337,7 +356,7 @@
                     return `(${p3} ${p2} (${p3} * ${percent}))`;
                 });
                 expression = expression.replace(/x/g, '*');
-                expression = expression.replace(/:/g, '/')
+                expression = expression.replace(/:/g, '/');
                 expression = expression.replace(/,/g, '.'); // Заменяем запятую на точку для вычисления
                 document.getElementById('display').value = eval(expression);
             } catch (e) {
@@ -364,10 +383,33 @@
             }
         }
 
+        function toggleteethSign() {
+            let display = document.getElementById("teeth-display");
+            if (display.value.startsWith('-')) {
+                display.value = display.value.slice(1);
+            } else {
+                display.value = '-' + display.value;
+            }
+        }
+
+        function togglebinarySign() {
+            let display = document.getElementById("binary-display");
+            if (display.value.startsWith('-')) {
+                display.value = display.value.slice(1);
+            } else {
+                display.value = '-' + display.value;
+            }
+        }
+
         function calculatePercent() {
             let display = document.getElementById("display");
             let value = parseFloat(display.value) / 100;
             display.value = value;
+        }
+
+        function backspace() {
+            let display = document.getElementById("display");
+            display.value = display.value.slice(0, -1);
         }
 
         // Функции для режима "Нос"
@@ -419,7 +461,9 @@
                 expression = expression.replace('|', '||');
                 expression = expression.replace('^', '!==');
                 expression = expression.replace('~', '!');
-
+                
+                expression = expression.replace(/x/g, '*');
+                expression = expression.replace(/:/g, '/');
                 expression = expression.replace(/,/g, '.'); // Заменяем запятую на точку для вычисления
 
                 // Вычисляем результат
@@ -427,6 +471,11 @@
             } catch (e) {
                 document.getElementById('teeth-display').value = 'Ошибка';
             }
+        }
+
+        function backspaceTeeth() {
+            let display = document.getElementById("teeth-display");
+            display.value = display.value.slice(0, -1);
         }
 
         // Добавляем функции для x² и x³ в режим "Зубы"
@@ -474,17 +523,9 @@
             }
         }
 
-        function convertToBinary() {
-            try {
-                let decimalValue = parseFloat(document.getElementById('binary-display').value);
-                if (!isNaN(decimalValue)) {
-                    document.getElementById('binary-result').innerHTML = `Результат: ${decimalValue.toString(2)}`;
-                } else {
-                    document.getElementById('binary-result').innerHTML = 'Ошибка в примере';
-                }
-            } catch (e) {
-                document.getElementById('binary-result').innerHTML = 'Ошибка в примере';
-            }
+        function backspaceBinary() {
+            let display = document.getElementById("binary-display");
+            display.value = display.value.slice(0, -1);
         }
     </script>
 </body>
