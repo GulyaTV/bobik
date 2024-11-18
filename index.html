@@ -297,28 +297,17 @@
         <div class="binary-mode" style="display: none;">
             <input type="text" class="display" id="binary-display" disabled>
             <div class="buttons">
-                <button class="clear" onclick="clearBinaryDisplay()">C</button>
-                <button class="operation" onclick="backspaceBinary()">←</button>
-                <button class="operation" onclick="togglebinarySign()">+/-</button>
-                <button class="operation" onclick="appendToBinaryDisplay('+')">+</button>
-                <button class="digit" onclick="appendToBinaryDisplay('1')">1</button>
-                <button class="digit" onclick="appendToBinaryDisplay('0')">0</button>
-                <button class="digit" onclick="appendToBinaryDisplay('00')">00</button>
-                <button class="operation" onclick="appendToBinaryDisplay('-')">-</button>
-                <button class="operation" onclick="appendToBinaryDisplay('*')">*</button>
-                <button class="operation" onclick="appendToBinaryDisplay('/')">/</button>
-                <button class="operation" onclick="calculateBinary()">=</button>
+                <!-- Ваши кнопки -->
             </div>
             <div class="result-container">
                 <div id="binary-result"></div>
             </div>
         </div>
         <div class="ai-mode" style="display: none;">
-                <div class="chat-container">
-                    <input type="text" id="chat-input" placeholder="Введите ваш запрос">
-                    <button onclick="sendMessage()">Отправить</button>
-                    <div class="chat-messages" id="chat-messages"></div>
-                </div>
+            <div class="chat-container">
+                <input type="text" id="chat-input" placeholder="Введите ваш запрос">
+                <button onclick="sendMessage()">Отправить</button>
+                <div class="chat-messages" id="chat-messages"></div>
             </div>
         </div>
     </div>
