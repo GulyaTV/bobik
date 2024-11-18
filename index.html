@@ -159,6 +159,45 @@
             margin-left: -10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+        .chat-container {
+            display: none;
+            margin-top: 20px;
+            color: white;
+        }
+        .chat-container input {
+            width: 80%;
+            height: 30px;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .chat-container button {
+            height: 40px;
+            font-size: 16px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .chat-container button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .chat-messages {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -173,9 +212,7 @@
             <button id="binary-mode">Хвост 🔢
                 <span class="beta-badge">Beta</span>
             </button> <!-- Новый режим "Бинарный" -->
-            <button id="ai-mode">BarkGPT Maths
-                <span class="beta-badge">Beta</span>
-            </button>
+            <button id="ai-mode">BarkGPT Maths 🐾</button>
         </div>
         <div class="paws-mode">
             <input type="text" class="display" id="display" disabled>
@@ -274,12 +311,10 @@
                 <div id="binary-result"></div>
             </div>
             <div class="ai-mode" style="display: none;">
-                <input type="text" class="display" id="ai-display" placeholder="Введите математическую задачу">
-                <div class="buttons">
-                    <button onclick="askAI('barkgpt')">BarkGPT Maths</button>
-                </div>
-                <div class="result-container">
-                    <div id="ai-result"></div>
+                <div class="chat-container">
+                    <input type="text" id="chat-input" placeholder="Введите ваш запрос">
+                    <button onclick="sendMessage()">Отправить</button>
+                    <div class="chat-messages" id="chat-messages"></div>
                 </div>
             </div>
         </div>
@@ -573,6 +608,28 @@
             });
             const data = await response.json();
             document.getElementById('ai-result').innerText = data.answer;
+        }
+
+        // Функция для отправки сообщения в чат
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (message === '') return;
+
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML += `<div><strong>Вы:</strong> ${message}</div>`;
+            input.value = '';
+
+            const response = await fetch('http://f1.aurorix.net:35016/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: message, model: 'barkgpt' })
+            });
+            const data = await response.json();
+            messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
     </script>
 </body>
