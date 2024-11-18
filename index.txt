@@ -173,9 +173,6 @@
             <button id="binary-mode">Хвост 🔢
                 <span class="beta-badge">Beta</span>
             </button> <!-- Новый режим "Бинарный" -->
-            <button id="ai-mode">BarkGPT Maths
-                <span class="beta-badge">Beta</span>
-            </button>
         </div>
         <div class="paws-mode">
             <input type="text" class="display" id="display" disabled>
@@ -273,16 +270,6 @@
             <div class="result-container">
                 <div id="binary-result"></div>
             </div>
-            <div class="ai-mode" style="display: none;">
-                <input type="text" class="display" id="ai-display" placeholder="Введите математическую задачу">
-                <div class="buttons">
-                    <button onclick="askAI('barkgpt')">BarkGPT Maths</button>
-                    <button onclick="askAI('yandexpgt')">YandexGPT</button>
-                </div>
-                <div class="result-container">
-                    <div id="ai-result"></div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -300,18 +287,16 @@
             }
         });
 
-        // Переключение между режимами "Лапы", "Нос", "Зубы", "Бинарный" и "AI Mode"
+        // Переключение между режимами "Лапы", "Нос", "Зубы" и "Бинарный"
         document.getElementById("paws-mode").addEventListener("click", () => {
             document.querySelector(".paws-mode").style.display = "block";
             document.querySelector(".nose-mode").style.display = "none";
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "none";
-            document.querySelector(".ai-mode").style.display = "none";
             this.classList.add("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
             document.getElementById("binary-mode").classList.remove("active");
-            document.getElementById("ai-mode").classList.remove("active");
         });
 
         document.getElementById("nose-mode").addEventListener("click", () => {
@@ -319,12 +304,10 @@
             document.querySelector(".nose-mode").style.display = "block";
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "none";
-            document.querySelector(".ai-mode").style.display = "none";
             this.classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
             document.getElementById("binary-mode").classList.remove("active");
-            document.getElementById("ai-mode").classList.remove("active");
         });
 
         document.getElementById("teeth-mode").addEventListener("click", () => {
@@ -332,12 +315,10 @@
             document.querySelector(".nose-mode").style.display = "none";
             document.querySelector(".teeth-mode").style.display = "block";
             document.querySelector(".binary-mode").style.display = "none";
-            document.querySelector(".ai-mode").style.display = "none";
             this.classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("binary-mode").classList.remove("active");
-            document.getElementById("ai-mode").classList.remove("active");
         });
 
         document.getElementById("binary-mode").addEventListener("click", () => {
@@ -345,25 +326,10 @@
             document.querySelector(".nose-mode").style.display = "none";
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "block";
-            document.querySelector(".ai-mode").style.display = "none";
             this.classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
-            document.getElementById("ai-mode").classList.remove("active");
-        });
-
-        document.getElementById("ai-mode").addEventListener("click", () => {
-            document.querySelector(".paws-mode").style.display = "none";
-            document.querySelector(".nose-mode").style.display = "none";
-            document.querySelector(".teeth-mode").style.display = "none";
-            document.querySelector(".binary-mode").style.display = "none";
-            document.querySelector(".ai-mode").style.display = "block";
-            this.classList.add("active");
-            document.getElementById("paws-mode").classList.remove("active");
-            document.getElementById("nose-mode").classList.remove("active");
-            document.getElementById("teeth-mode").classList.remove("active");
-            document.getElementById("binary-mode").classList.remove("active");
         });
 
         canvas.setLineWidth(5);
@@ -560,20 +526,6 @@
         function backspaceBinary() {
             let display = document.getElementById("binary-display");
             display.value = display.value.slice(0, -1);
-        }
-
-        // Функция для отправки запроса на сервер и получения ответа
-        async function askAI(model) {
-            const question = document.getElementById('ai-display').value;
-            const response = await fetch('http://f1.aurorix.net:35016/ask', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question, model })
-            });
-            const data = await response.json();
-            document.getElementById('ai-result').innerText = data.answer;
         }
     </script>
 </body>
