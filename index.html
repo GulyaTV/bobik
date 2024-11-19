@@ -199,8 +199,8 @@
             overflow-y: auto;
         }
         .ai-mode .chat-container {
-    display: block;
-}
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -625,16 +625,26 @@
             messagesContainer.innerHTML += `<div><strong>Вы:</strong> ${message}</div>`;
             input.value = '';
 
-            const response = await fetch('http://f1.aurorix.net:35016/ask', {
+            try {
+                const response = await fetch('http://f1.aurorix.net:35016/ask', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ question: message, model: 'barkgpt' })
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
             messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            } catch (error) {
+                console.error('Ошибка при отправке запроса:', error);
+                messagesContainer.innerHTML += `<div><strong>Ошибка:</strong> Не удалось получить ответ от сервера.</div>`;
+            }
         }
     </script>
 </body>
