@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бобик Калькулятор</title>
     <style>
         body {
@@ -225,11 +225,11 @@
                 <button class="clear" onclick="clearDisplay()">C</button>
                 <button class="operation" onclick="backspace()">←</button>
                 <button class="operation" onclick="toggleSign()">+/-</button>
-                <button class="operation" onclick="appendToDisplay(':')">:</button>
+                <button class="operation" onclick="appendToDisplay('/')">/</button>
                 <button class="digit" onclick="appendToDisplay('7')">7</button>
                 <button class="digit" onclick="appendToDisplay('8')">8</button>
                 <button class="digit" onclick="appendToDisplay('9')">9</button>
-                <button class="operation" onclick="appendToDisplay('x')">x</button>
+                <button class="operation" onclick="appendToDisplay('*')">*</button>
                 <button class="digit" onclick="appendToDisplay('4')">4</button>
                 <button class="digit" onclick="appendToDisplay('5')">5</button>
                 <button class="digit" onclick="appendToDisplay('6')">6</button>
@@ -240,7 +240,7 @@
                 <button class="operation" onclick="appendToDisplay('+')">+</button>
                 <button class="digit" onclick="appendToDisplay('0')">0</button>
                 <button class="digit" onclick="appendToDisplay('00')">00</button>
-                <button class="digit" onclick="appendToDisplay(',')">,</button>
+                <button class="digit" onclick="appendToDisplay('.')">.</button>
                 <button class="operation" onclick="calculate()">=</button>
                 <button class="operation" onclick="calculateSqrt()">√</button>
                 <button class="operation" onclick="calculatePercent()">%</button>
@@ -262,35 +262,28 @@
             <div class="buttons">
                 <button class="clear" onclick="clearTeethDisplay()">C</button>
                 <button class="operation" onclick="backspaceTeeth()">←</button>
-                <button class="operation" onclick="toggleteethSign()">+/-</button>
-                <button class="operation" onclick="appendToTeethDisplay('3.14')">π</button>                
+                <button class="operation" onclick="toggleTeethSign()">+/-</button>
+                <button class="operation" onclick="appendToTeethDisplay('3.14')">π</button>
                 <button class="digit" onclick="appendToTeethDisplay('7')">7</button>
                 <button class="digit" onclick="appendToTeethDisplay('8')">8</button>
                 <button class="digit" onclick="appendToTeethDisplay('9')">9</button>
-                <button class="operation" onclick="appendToTeethDisplay(':')">:</button>
+                <button class="operation" onclick="appendToTeethDisplay('/')">/</button>
                 <button class="digit" onclick="appendToTeethDisplay('4')">4</button>
                 <button class="digit" onclick="appendToTeethDisplay('5')">5</button>
                 <button class="digit" onclick="appendToTeethDisplay('6')">6</button>
-                <button class="operation" onclick="appendToTeethDisplay('x')">x</button>
+                <button class="operation" onclick="appendToTeethDisplay('*')">*</button>
                 <button class="digit" onclick="appendToTeethDisplay('1')">1</button>
                 <button class="digit" onclick="appendToTeethDisplay('2')">2</button>
                 <button class="digit" onclick="appendToTeethDisplay('3')">3</button>
                 <button class="operation" onclick="appendToTeethDisplay('-')">-</button>
                 <button class="digit" onclick="appendToTeethDisplay('0')">0</button>
                 <button class="digit" onclick="appendToTeethDisplay('00')">00</button>
-                <button class="digit" onclick="appendToTeethDisplay(',')">,</button>
+                <button class="digit" onclick="appendToTeethDisplay('.')">.</button>
                 <button class="operation" onclick="appendToTeethDisplay('+')">+</button>
                 <button class="operation" onclick="appendToTeethDisplay('&')">AND (&)</button>
                 <button class="operation" onclick="appendToTeethDisplay('|')">OR (|)</button>
                 <button class="operation" onclick="appendToTeethDisplay('^')">XOR (^)</button>
                 <button class="operation" onclick="appendToTeethDisplay('~')">NOT (~)</button>
-                <!-- <button class="operation" onclick="appendToTeethDisplay('sin(')">sin</button>
-                <button class="operation" onclick="appendToTeethDisplay('cos(')">cos</button>
-                <button class="operation" onclick="appendToTeethDisplay('tan(')">tan</button>
-                <button class="operation" onclick="appendToTeethDisplay('ctg(')">ctg</button>
-                <button class="operation" onclick="appendToTeethDisplay('lg(')">lg</button>
-                <button class="operation" onclick="appendToTeethDisplay('ln(')">ln</button>
-                <button class="operation" onclick="appendToTeethDisplay('^')">x<sup>y</sup></button> -->
                 <button class="operation" onclick="calculateSquare()">x²</button>
                 <button class="operation" onclick="calculateCube()">x³</button>
                 <button class="operation" onclick="calculateSqrt()">√</button>
@@ -302,11 +295,10 @@
             <div class="buttons">
                 <button class="clear" onclick="clearBinaryDisplay()">C</button>
                 <button class="operation" onclick="backspaceBinary()">←</button>
-                <button class="operation" onclick="togglebinarySign()">+/-</button>
+                <button class="operation" onclick="toggleBinarySign()">+/-</button>
                 <button class="operation" onclick="appendToBinaryDisplay('+')">+</button>
                 <button class="digit" onclick="appendToBinaryDisplay('1')">1</button>
                 <button class="digit" onclick="appendToBinaryDisplay('0')">0</button>
-                <button class="digit" onclick="appendToBinaryDisplay('00')">00</button>
                 <button class="operation" onclick="appendToBinaryDisplay('-')">-</button>
                 <button class="operation" onclick="appendToBinaryDisplay('*')">*</button>
                 <button class="operation" onclick="appendToBinaryDisplay('/')">/</button>
@@ -334,8 +326,8 @@
         canvas.setCallBack(function (data, err) {
             if (err) throw err;
             else {
-            document.getElementById("recognition-result").innerText = "Распознано: " + data;
-            sessionStorage.setItem('recognizedExpression', data);
+                document.getElementById("recognition-result").innerText = "Распознано: " + data;
+                sessionStorage.setItem('recognizedExpression', data);
             }
         });
 
@@ -346,7 +338,7 @@
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "none";
             document.querySelector(".ai-mode").style.display = "none";
-            this.classList.add("active");
+            document.getElementById("paws-mode").classList.add("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
             document.getElementById("binary-mode").classList.remove("active");
@@ -359,7 +351,7 @@
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "none";
             document.querySelector(".ai-mode").style.display = "none";
-            this.classList.add("active");
+            document.getElementById("nose-mode").classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
             document.getElementById("binary-mode").classList.remove("active");
@@ -372,7 +364,7 @@
             document.querySelector(".teeth-mode").style.display = "block";
             document.querySelector(".binary-mode").style.display = "none";
             document.querySelector(".ai-mode").style.display = "none";
-            this.classList.add("active");
+            document.getElementById("teeth-mode").classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("binary-mode").classList.remove("active");
@@ -385,7 +377,7 @@
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "block";
             document.querySelector(".ai-mode").style.display = "none";
-            this.classList.add("active");
+            document.getElementById("binary-mode").classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
@@ -398,7 +390,7 @@
             document.querySelector(".teeth-mode").style.display = "none";
             document.querySelector(".binary-mode").style.display = "none";
             document.querySelector(".ai-mode").style.display = "block";
-            this.classList.add("active");
+            document.getElementById("ai-mode").classList.add("active");
             document.getElementById("paws-mode").classList.remove("active");
             document.getElementById("nose-mode").classList.remove("active");
             document.getElementById("teeth-mode").classList.remove("active");
@@ -456,7 +448,7 @@
             }
         }
 
-        function toggleteethSign() {
+        function toggleTeethSign() {
             let display = document.getElementById("teeth-display");
             if (display.value.startsWith('-')) {
                 display.value = display.value.slice(1);
@@ -465,7 +457,7 @@
             }
         }
 
-        function togglebinarySign() {
+        function toggleBinarySign() {
             let display = document.getElementById("binary-display");
             if (display.value.startsWith('-')) {
                 display.value = display.value.slice(1);
@@ -496,14 +488,14 @@
                 try {
                     // Заменяем 'r' перед числом на 'Math.sqrt'
                     let expression = recognizedExpression.replace(/v(\d+)/g, 'Math.sqrt($1)');
-            
+
                     // Прочие замены для обработки выражений
                     expression = expression.replace(/x/g, '*').replace(/:/g, '/');
                     expression = expression.replace(/(\d+)\s*%\s*([+-/*])\s*(\d+)/g, (match, p1, p2, p3) => {
                         const percent = parseFloat(p1) / 100;
                         return `(${p3} ${p2} (${p3} * ${percent}))`;
-            });
-                expression = expression.replace(/,/g, '.'); // Заменяем запятую на точку для вычисления
+                    });
+                    expression = expression.replace(/,/g, '.'); // Заменяем запятую на точку для вычисления
 
                     // Обрабатываем выражение при помощи math.js
                     const result = math.evaluate(expression);
@@ -534,7 +526,7 @@
                 expression = expression.replace('|', '||');
                 expression = expression.replace('^', '!==');
                 expression = expression.replace('~', '!');
-                
+
                 expression = expression.replace(/x/g, '*');
                 expression = expression.replace(/:/g, '/');
                 expression = expression.replace(/,/g, '.'); // Заменяем запятую на точку для вычисления
@@ -615,15 +607,16 @@
             document.getElementById('ai-result').innerText = data.answer;
         }
 
+        // Функция для отправки сообщения в чат
         async function sendMessage() {
             const input = document.getElementById('chat-input');
             const message = input.value.trim();
             if (message === '') return;
-            
+
             const messagesContainer = document.getElementById('chat-messages');
             messagesContainer.innerHTML += `<div><strong>Вы:</strong> ${message}</div>`;
             input.value = '';
-            
+
             try {
                 const response = await fetch('http://f1.aurorix.net:35016/ask', {
                     method: 'POST',
@@ -632,11 +625,11 @@
                     },
                     body: JSON.stringify({ question: message, model: 'barkgpt' })
                 });
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const data = await response.json();
                 console.log("Received response from server:", data);
                 messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
