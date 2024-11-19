@@ -639,6 +639,7 @@
             }
 
             const data = await response.json();
+            console.log("Received response from server:", data);
             messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } catch (error) {
