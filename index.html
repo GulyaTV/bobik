@@ -615,33 +615,32 @@
             document.getElementById('ai-result').innerText = data.answer;
         }
 
-        // Функция для отправки сообщения в чат
         async function sendMessage() {
             const input = document.getElementById('chat-input');
             const message = input.value.trim();
             if (message === '') return;
-
+            
             const messagesContainer = document.getElementById('chat-messages');
             messagesContainer.innerHTML += `<div><strong>Вы:</strong> ${message}</div>`;
             input.value = '';
-
+            
             try {
                 const response = await fetch('http://f1.aurorix.net:35016/ask', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question: message, model: 'barkgpt' })
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log("Received response from server:", data);
-            messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: message, model: 'barkgpt' })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log("Received response from server:", data);
+                messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } catch (error) {
                 console.error('Ошибка при отправке запроса:', error);
                 messagesContainer.innerHTML += `<div><strong>Ошибка:</strong> Не удалось получить ответ от сервера.</div>`;
