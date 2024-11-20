@@ -215,7 +215,7 @@
             <button id="binary-mode">Хвост 🔢
                 <span class="beta-badge">Beta</span>
             </button> <!-- Новый режим "Бинарный" -->
-            <button id="ai-mode">AI Mode
+            <button id="ai-mode">BarkGPT Maths
                 <span class="beta-badge">Beta</span>
             </button>
         </div>
@@ -596,7 +596,7 @@
         // Функция для отправки запроса на сервер и получения ответа
         async function askAI(model) {
             const question = document.getElementById('ai-display').value;
-            const response = await fetch('http://f1.aurorix.net:35016/ask', {
+            const response = await fetch('https://f1.aurorix.net:35016/ask', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -618,7 +618,7 @@
             input.value = '';
 
             try {
-                const response = await fetch('http://f1.aurorix.net:35016/ask', {
+                const response = await fetch('https://f1.aurorix.net:35016/ask', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -632,7 +632,7 @@
 
                 const data = await response.json();
                 console.log("Received response from server:", data);
-                messagesContainer.innerHTML += `<div><strong>AI:</strong> ${data.answer}</div>`;
+                messagesContainer.innerHTML += `<div><strong>BarkGPT Maths:</strong> ${data.answer}</div>`;
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } catch (error) {
                 console.error('Ошибка при отправке запроса:', error);
