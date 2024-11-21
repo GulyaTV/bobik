@@ -596,7 +596,7 @@
         // Функция для отправки запроса на сервер и получения ответа
         async function askAI(model) {
             const question = document.getElementById('ai-display').value;
-            const response = await fetch('http://f1.aurorix.net:35016/ask', {
+            const response = await fetch('d3.aurorix.net:25013/ask', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -607,7 +607,8 @@
             document.getElementById('ai-result').innerText = data.answer;
         }
 
-        function sendMessage() {
+        // Функция для отправки сообщения в чат
+        async function sendMessage() {
             const input = document.getElementById('chat-input');
             const message = input.value.trim();
             if (message === '') return;
@@ -616,26 +617,27 @@
             messagesContainer.innerHTML += `<div><strong>Вы:</strong> ${message}</div>`;
             input.value = '';
 
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://f1.aurorix.net:35016/ask', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            try {
+                const response = await fetch('http://d3.aurorix.net:25013/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: message, model: 'barkgpt' })
+                });
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        const data = JSON.parse(xhr.responseText);
-                        console.log("Received response from server:", data);
-                        messagesContainer.innerHTML += `<div><strong>BarkGPT Maths:</strong> ${data.answer}</div>`;
-                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                    } else {
-                        console.error('Ошибка при отправке запроса:', xhr.status);
-                        messagesContainer.innerHTML += `<div><strong>Ошибка:</strong> Не удалось получить ответ от сервера.</div>`;
-                    }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            };
-            
-            const payload = JSON.stringify({ question: message, model: 'barkgpt' });
-            xhr.send(payload);
+
+                const data = await response.json();
+                console.log("Received response from server:", data);
+                messagesContainer.innerHTML += `<div><strong>BarkGPT Maths:</strong> ${data.answer}</div>`;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            } catch (error) {
+                console.error('Ошибка при отправке запроса:', error);
+                messagesContainer.innerHTML += `<div><strong>Ошибка:</strong> Не удалось получить ответ от сервера.</div>`;
+            }
         }
     </script>
 </body>
