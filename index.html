@@ -100,7 +100,7 @@
         }
         .mode-toggle button {
             height: 55px;
-            width: 70px;
+            width: 60px;
             font-size: 16px;
             padding: 10px;
             border: none;
@@ -109,6 +109,16 @@
             background-color: #4CAF50;
             color: white;
             transition: background-color 0.2s, transform 0.1s;
+            margin-left: 5px;
+        }
+        .barkgpt-maths {
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .ai-mode button {
+            margin-top: 10px;
         }
         .mode-toggle button.active {
             background-color: #45a049;
@@ -214,10 +224,10 @@
             <button id="teeth-mode">Зубы 🦷
                 <span class="beta-badge">Beta</span>
             </button>
-            <button id="binary-mode">Хвост 🔢
+            <button id="binary-mode">Хвост 🐶
                 <span class="beta-badge">Beta</span>
             </button> <!-- Новый режим "Бинарный" -->
-            <button id="ai-mode">BarkGPT Maths
+            <button id="ai-mode">Bark 🐶
                 <span class="beta-badge">Beta</span>
             </button>
         </div>
@@ -311,6 +321,7 @@
             </div>
         </div>
         <div class="ai-mode" style="display: none;">
+            <div class="barkgpt-maths">BarkGPT Maths</div>
             <div class="chat-container">
                 <input type="text" id="chat-input" placeholder="Введите ваш запрос">
                 <button onclick="sendMessage()">Отправить</button>
