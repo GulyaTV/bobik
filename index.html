@@ -213,6 +213,53 @@
         .ai-mode .chat-container {
             display: block;
         }
+        /* Медиа-запросы для адаптации под мобильные устройства */
+        @media (max-width: 768px) {
+            .calculator {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .name {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .display {
+                height: 50px;
+                font-size: 18px;
+                padding: 10px;
+            }
+
+            .buttons button {
+                height: 50px;
+                width: 50px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .name {
+                font-size: 20px;
+            }
+
+            .display {
+                height: 45px;
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            .buttons button {
+                height: 45px;
+                width: 45px;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
