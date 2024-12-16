@@ -336,6 +336,10 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Включаем Telegram WebApp API -->
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <script>
+        // Отправляет событие инициализации нативному клиенту
+        vkBridge.send('VKWebAppInit');
+    </script>
+    <script>
         var canvas = new handwriting.Canvas(document.getElementById("canvas"), 3);
         canvas.setCallBack(function (data, err) {
             if (err) throw err;
